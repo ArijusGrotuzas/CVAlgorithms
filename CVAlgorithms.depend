@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1654182602 source:c:\users\tamst\documents\dctcompression\main.cpp
+	<iostream>
+	<string>
+	<bits/stdc++.h>
+	<opencv2\highgui\highgui.hpp>
+	<opencv2\opencv.hpp>
+	<opencv2/calib3d.hpp>
+	<ImgProcessFuncs.h>
+
+1654182597 c:\users\tamst\documents\dctcompression\include\imgprocessfuncs.h
+	<math.h>
+
+1654689009 source:c:\users\tamst\documents\cvalgorithms\main.cpp
+	<iostream>
+	<string>
+	<bits/stdc++.h>
+	<opencv2\highgui\highgui.hpp>
+	<opencv2\opencv.hpp>
+	<opencv2/calib3d.hpp>
+	<ImgProcessFuncs.h>
+
+1654688848 c:\users\tamst\documents\cvalgorithms\include\imgprocessfuncs.h
+	<math.h>
+

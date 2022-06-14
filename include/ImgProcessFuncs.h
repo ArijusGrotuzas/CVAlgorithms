@@ -476,6 +476,81 @@ Mat harrisCorners(Mat& img, int radius = 2, float k = 0.04, bool norm=false){
     return result;
 }
 
+Mat shiTomasiCorners(Mat& img, int radius = 2, bool norm=false){
+
+    // Get necessary kernels
+    Mat gaus = gaussianKernel(radius, 1.0);
+    Mat hor = sobelHorizontal();
+    Mat vert = sobelVertical();
+
+    // Find gradients in x and y directions
+    Mat xGradient = convolve(img, hor);
+    Mat yGradient = convolve(img, vert);
+
+    // Get image rows and columns
+    int rows = yGradient.rows, cols = yGradient.cols;
+
+    // Sums of gradients
+    float Ixx, Iyy, Ixy, R;
+    Mat result(rows - (radius * 2), cols - (radius * 2), CV_32FC1, Scalar(0));
+
+    // Loop through all the pixels in the image
+    for(int x = radius; x < (rows - radius); x++){
+        for(int y = radius; y < (cols - radius); y++){
+
+            // Reset sum of gradients
+            Ixx = 0.0;
+            Iyy = 0.0;
+            Ixy = 0.0;
+
+            // Loop through a window
+            for(int i = -radius; i <= radius; i++){
+                for(int j = -radius; j <= radius; j++){
+
+                    // Get pointers to the kernel and the image values
+                    unsigned char *xPtr = xGradient.ptr(x + i) + y + j;
+                    unsigned char *yPtr = yGradient.ptr(x + i) + y + j;
+
+                    // Depointerize the pointers
+                    int xVal = *xPtr;
+                    int yVal = *yPtr;
+
+                    // Get the weight value for the current window position
+                    float *kernelPtr = gaus.ptr<float>(i + radius) + j + radius;
+                    float weight = *kernelPtr;
+
+                    // Sum up the gradients
+                    Ixx += (weight * (xVal * xVal));
+                    Iyy += (weight * (yVal * yVal));
+                    Ixy += (weight * (xVal * yVal));
+                }
+            }
+
+            Mat StructureMat(2, 2, CV_32FC1, Scalar(0));
+            StructureMat.at<float>(0, 0) = Ixx;
+            StructureMat.at<float>(0, 1) = Ixy;
+            StructureMat.at<float>(1, 0) = Ixy;
+            StructureMat.at<float>(1, 1) = Iyy;
+
+            cv::Mat eigens;
+            cv::eigen(StructureMat, eigens);
+
+            R = min(eigens.at<float>(0), eigens.at<float>(1));
+            result.at<float>(x - radius, y - radius) = R;
+        }
+    }
+
+    if (norm){
+        // Normalize the values
+        double min, max;
+        minMaxIdx(result, &min, &max);
+        result = (result - min) / (max - min);
+    }
+
+    return result;
+}
+
+
 /**< Histogram processing and operations */
 
 void histogramStretch(Mat& img){

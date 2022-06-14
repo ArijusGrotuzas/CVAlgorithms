@@ -4,7 +4,7 @@
 
 #include <opencv2\highgui\highgui.hpp>
 #include <opencv2\opencv.hpp>
-#include <opencv2/calib3d.hpp>
+#include <opencv2\calib3d.hpp>
 
 #include <ImgProcessFuncs.h>
 
@@ -29,7 +29,7 @@ int main() {
     Mat blurred = gausBlur(gray, 1, 1.5);
 
     // Get corner features of the image
-    Mat response = harrisCorners(blurred, 4, 0.04, true);
+    Mat response = shiTomasiCorners(blurred, 4, true);
 
     // Create a window with a specified name
     namedWindow("Target");

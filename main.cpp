@@ -31,6 +31,11 @@ int main() {
     // Get corner features of the image
     Mat response = shiTomasiCorners(blurred, 4, true);
 
+    /*
+    Mat corners;
+    cv::threshold(result, corners, maximum * 0.9, 255, 0);
+    */
+
     // Create a window with a specified name
     namedWindow("Target");
 

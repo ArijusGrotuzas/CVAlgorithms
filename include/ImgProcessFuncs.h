@@ -211,11 +211,9 @@ Mat thresh(Mat& img, int limit){
             int val = *pixelPtr;
 
             if(val > limit){
-                // Set the output value to be an average of all input image's channel values
                 result.data[result.step[0]*x + result.step[1]* y] = 255;
             }
             else{
-                // Set the output value to be an average of all input image's channel values
                 result.data[result.step[0]*x + result.step[1]* y] = 0;
             }
         }
@@ -526,16 +524,18 @@ Mat shiTomasiCorners(Mat& img, int radius = 2, bool norm=false){
                 }
             }
 
+            // Build Structure Matrix
             Mat StructureMat(2, 2, CV_32FC1, Scalar(0));
             StructureMat.at<float>(0, 0) = Ixx;
             StructureMat.at<float>(0, 1) = Ixy;
             StructureMat.at<float>(1, 0) = Ixy;
             StructureMat.at<float>(1, 1) = Iyy;
 
+            // Find the eigenvalues
             cv::Mat eigens;
             cv::eigen(StructureMat, eigens);
 
-            R = min(eigens.at<float>(0), eigens.at<float>(1));
+            R = std::min(eigens.at<float>(0), eigens.at<float>(1));
             result.at<float>(x - radius, y - radius) = R;
         }
     }

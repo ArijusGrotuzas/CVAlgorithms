@@ -16,3 +16,7 @@
 # Edge detection (Image gradients)
 
 # Features
+
+## Harris Corners Detector
+
+## Shi-Tomasi Corners Detector

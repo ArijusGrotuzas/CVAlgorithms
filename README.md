@@ -1,15 +1,10 @@
+# Image Transformations
 
-# Image transformations
+## Scaling
 
-## Backward Mapping
+## Rotation
 
-## Transformations
-
-### Scaling
-
-### Rotation
-
-### Shearing
+## Shearing
 
 | `Original` | `Sheared` |
 | :---:| :---:|

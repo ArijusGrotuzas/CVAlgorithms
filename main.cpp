@@ -10,7 +10,7 @@
 
 int main() {
     // Create a matrix object and load the image to the matrix
-    Mat original = imread("images/blox.jpg", IMREAD_COLOR);
+    Mat original = imread("images/fruits.jpg", IMREAD_COLOR);
 
     // Check if image is not empty
     if (original.empty()){
@@ -26,21 +26,17 @@ int main() {
     histogramStretch(gray);
 
     // Blur the image
-    Mat blurred = gausBlur(gray, 1, 1.5);
+    Mat rot = shearMat(0.0, 1.1);
+    Mat rotated = backwardMapping(gray, rot, 1, 2.5);
 
-    // Get corner features of the image
-    Mat response = shiTomasiCorners(blurred, 4, true);
-
-    /*
-    Mat corners;
-    cv::threshold(result, corners, maximum * 0.9, 255, 0);
-    */
+    Mat result;
+    cv::resize(rotated, result, cv::Size(), 0.5, 0.5);
 
     // Create a window with a specified name
     namedWindow("Target");
 
     // Display the image
-    imshow("Target", response);
+    imshow("Target", result);
     waitKey(0);
 
     return 0;

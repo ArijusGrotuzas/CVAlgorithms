@@ -63,11 +63,26 @@
 # Features
 
 ## Harris Corners Detector
+![Corners](https://user-images.githubusercontent.com/50104866/178045575-cb38ad40-e82f-4d83-a00b-e96bb9f48200.png)
+
+
+```C++
+    // Convert the image to grayscale
+    Mat gray = CVAlg::grayscale(original);
+
+    // Stretch the image's histogram
+    CVAlg::histogramStretch(gray);
+
+    // Extract corners
+    Mat corners = CVAlg::harrisCorners(gray, 7, 0.04);
+
+    // Draw corners
+    CVAlg::drawCorners(corners, original, 0.5, cv::Scalar(0, 0, 255), cv::MARKER_DIAMOND);
+```
+
 
 ## Shi-Tomasi Corners Detector
-| `Original` | `Corners` |
-| :---:| :---:|
-|![blox](https://user-images.githubusercontent.com/50104866/178031049-ea4975e1-9244-436c-bbdf-00afbcd2de63.jpg)|![Corners](https://user-images.githubusercontent.com/50104866/178031086-d5072d23-7ddb-4e18-9662-78e1ff081c7f.png)|
+![Corners](https://user-images.githubusercontent.com/50104866/178031086-d5072d23-7ddb-4e18-9662-78e1ff081c7f.png)
 
 ```C++
     // Convert the image to grayscale

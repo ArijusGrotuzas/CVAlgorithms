@@ -8,6 +8,7 @@
 
 #include <ImgProcessFuncs.h>
 
+
 int main() {
     // Create a matrix object and load the image to the matrix
     Mat original = imread("images/fruits.jpg", IMREAD_COLOR);
@@ -20,17 +21,13 @@ int main() {
     }
 
     // Convert the image to grayscale
-    Mat gray = grayscale(original);
+    Mat gray = CVAlg::grayscale(original);
 
     // Stretch the image's histogram
-    histogramStretch(gray);
+    CVAlg::histogramStretch(gray);
 
-    // Blur the image
-    Mat rot = shearMat(0.0, 1.1);
-    Mat rotated = backwardMapping(gray, rot, 1, 2.5);
-
-    Mat result;
-    cv::resize(rotated, result, cv::Size(), 0.5, 0.5);
+    // Extract edges
+    Mat result = CVAlg::threshold(gray, 125);
 
     // Create a window with a specified name
     namedWindow("Target");

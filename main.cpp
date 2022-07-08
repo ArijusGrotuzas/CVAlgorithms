@@ -11,7 +11,7 @@
 
 int main() {
     // Create a matrix object and load the image to the matrix
-    Mat original = imread("images/fruits.jpg", IMREAD_COLOR);
+    Mat original = imread("images/blox.jpg", IMREAD_COLOR);
 
     // Check if image is not empty
     if (original.empty()){
@@ -26,14 +26,17 @@ int main() {
     // Stretch the image's histogram
     CVAlg::histogramStretch(gray);
 
-    // Extract edges
-    Mat result = CVAlg::threshold(gray, 125);
+    // Extract corners
+    Mat corners = CVAlg::shiTomasiCorners(gray, 5);
+
+    // Draw corners
+    CVAlg::drawCorners(corners, original, 0.65, cv::Scalar(0, 0, 255));
 
     // Create a window with a specified name
     namedWindow("Target");
 
     // Display the image
-    imshow("Target", result);
+    imshow("Target", original);
     waitKey(0);
 
     return 0;

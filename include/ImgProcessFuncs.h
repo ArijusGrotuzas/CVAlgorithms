@@ -552,7 +552,35 @@ namespace CVAlg{
         return result;
     }
 
+    void drawCorners(Mat& inImg, Mat& outImg, float r, cv::Scalar color, int markerType = cv::MARKER_CROSS){
+        // Get min and max values
+        double minimum, maximum;
+        cv::minMaxIdx(inImg, &minimum, &maximum);
 
+        // Threshold the response values
+        Mat corners;
+        cv::threshold(inImg, corners, (maximum * r), 255, 0);
+
+        // Convert to unsinged int
+        Mat result;
+        corners.convertTo(result, CV_8UC1);
+
+        // Loop through all the pixels in the image
+        for(int x = 0; x < result.rows; x++){
+            for(int y = 0; y < result.cols; y++){
+
+                unsigned char *pixelPtr = result.ptr(x) + y;
+                int val = *pixelPtr;
+
+                if (val > 0){
+                    cv::drawMarker(outImg, cv::Point(y + 6, x + 6), color, markerType, 10);
+                }
+
+            }
+        }
+
+
+    }
     /**< Histogram processing and operations */
 
     void histogramStretch(Mat& img){

@@ -1,8 +1,31 @@
+# CV Algorithms
+A set of naive implementations of popular CV algorithms implemented in `C++` using `OpenCV` library.
+
+# Table of contents
+- [Image-thresholding](#Image-thresholding)
+- [Image Transformations](#Image-Transformations)
+- [Gaussian Blurring](#Gaussian-Blurring)
+- [Sobel edge detection](#Sobel-edge-detection)
+- [Features](#Features)
+
+# Image thresholding
+
+| `Original` | `Binary` |
+| :---:| :---:|
+|![sudoku](https://user-images.githubusercontent.com/50104866/178046409-b5905053-e777-494c-ab34-3fb9c5c5eeb7.png) | ![Binary](https://user-images.githubusercontent.com/50104866/178046386-30209dc4-c40d-4f6c-a880-d9c2837442ac.png)|
+
+```C++
+    // Convert the image to grayscale
+    Mat gray = CVAlg::grayscale(original);
+
+    // Stretch the image's histogram
+    CVAlg::histogramStretch(gray);
+
+    //Binarize image
+    Mat binary = CVAlg::threshold(gray, 125);
+```
+
 # Image Transformations
-
-## Scaling
-
-## Rotation
 
 ## Shearing
 

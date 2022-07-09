@@ -27,12 +27,32 @@ A set of naive implementations of popular CV algorithms implemented in `C++` usi
 
 ## Scaling
 
+| `Original` | `Scaled` |
+| :---:| :---:|
+|![butterfly](https://user-images.githubusercontent.com/50104866/178106450-10805a9f-6d99-47d2-9d5d-290d72418c4d.jpg)|![Enlarged](https://user-images.githubusercontent.com/50104866/178106462-62149a57-f3be-4724-9c1b-96b617b00435.png)|
+
+
 ```C++
     // Convert the image to grayscale
     Mat gray(original.rows, original.cols, CV_8UC1, Scalar(0));
     CVAlg::grayscale(original, gray);
 
-    //Binarize image
+    // Scale the image
+    Mat scale = CVAlg::scaleMat(2.0, 2.0);
+    Mat result = CVAlg::backwardMapping(gray, scale, 2, 2);
+```
+
+## Rotation about Z axis
+
+| `Original` | `Scaled` |
+| :---:| :---:|
+
+```C++
+    // Convert the image to grayscale
+    Mat gray(original.rows, original.cols, CV_8UC1, Scalar(0));
+    CVAlg::grayscale(original, gray);
+
+    // Scale the image
     Mat scale = CVAlg::scaleMat(2.0, 2.0);
     Mat result = CVAlg::backwardMapping(gray, scale, 2, 2);
 ```

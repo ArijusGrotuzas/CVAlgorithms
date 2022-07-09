@@ -48,6 +48,18 @@ namespace CVAlg{
         return trans;
     }
 
+    Mat translateMat(float dispX, float dispY){
+        Mat trans(3, 3, CV_32FC1, Scalar(0));
+
+        trans.at<float>(0, 0) = 1.0;
+        trans.at<float>(1, 1) = 1.0;
+        trans.at<float>(0, 2) = dispY;
+        trans.at<float>(1, 2) = dispX;
+        trans.at<float>(2, 2) = 1.0;
+
+        return trans;
+    }
+
     Mat rotationMat(float theta){
 
         Mat trans(3, 3, CV_32FC1, Scalar(0));
@@ -154,21 +166,17 @@ namespace CVAlg{
 
     /**< Point processing operations */
 
-    Mat grayscale(Mat& img){
+    void grayscale(Mat& InImg, Mat& OutImg){
 
         // Get number of channels of the input image
-        int channels = img.channels();
+        int channels = InImg.channels();
 
         // Check if input image is a colored image
         if(channels != 3){
             cout << "Error, expected a colored image, returning empty image..." << endl;
-            return Mat(0, 0, CV_8UC1, Scalar(0));
         }
 
-        int sum, rows = img.rows, cols = img.cols;
-
-        // Initialize empty single-channel result image
-        Mat result(rows, cols, CV_8UC1, Scalar(0));
+        int sum, rows = InImg.rows, cols = InImg.cols;
 
         // Loop through all the pixels in the image
         for(int x = 0; x < rows; x++){
@@ -177,17 +185,15 @@ namespace CVAlg{
 
                 // Loop through all the channel values
                 for(int i = 0; i < channels; i ++){
-                    unsigned char *pixelPtr = img.ptr(x) + (y * channels) + i;
+                    unsigned char *pixelPtr = InImg.ptr(x) + (y * channels) + i;
                     int val = *pixelPtr;
                     sum += val;
                 }
 
                 // Set the output value to be an average of all input image's channel values
-                result.data[result.step[0]*x + result.step[1]* y] = sum / channels;
+                OutImg.data[OutImg.step[0]*x + OutImg.step[1]* y] = sum / channels;
             }
         }
-
-        return result;
     }
 
     Mat threshold(Mat& img, int limit){
@@ -573,7 +579,7 @@ namespace CVAlg{
                 int val = *pixelPtr;
 
                 if (val > 0){
-                    cv::drawMarker(outImg, cv::Point(y + 6, x + 6), color, markerType, 10);
+                    cv::drawMarker(outImg, cv::Point(y + 6, x + 6), color, markerType, 20);
                 }
 
             }

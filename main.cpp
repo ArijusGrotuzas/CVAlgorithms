@@ -11,7 +11,7 @@
 
 int main() {
     // Create a matrix object and load the image to the matrix
-    Mat original = imread("images/blox.jpg", IMREAD_COLOR);
+    Mat original = imread("images/chicky_512.png", IMREAD_COLOR);
 
     // Check if image is not empty
     if (original.empty()){
@@ -21,22 +21,21 @@ int main() {
     }
 
     // Convert the image to grayscale
-    Mat gray = CVAlg::grayscale(original);
+    Mat gray(original.rows, original.cols, CV_8UC1, Scalar(0));
+    CVAlg::grayscale(original, gray);
 
-    // Stretch the image's histogram
-    CVAlg::histogramStretch(gray);
-
-    // Extract corners
-    Mat corners = CVAlg::shiTomasiCorners(gray, 5);
-
-    // Draw corners
-    CVAlg::drawCorners(corners, original, 0.65, cv::Scalar(0, 0, 255));
+    // Rotate the image
+    Mat rot = CVAlg::rotationMat(150.0);
+    Mat trans = CVAlg::translateMat(500.0, 0.0);
+    Mat combined = trans * rot;
+    cout << "M = " << endl << " "  << combined << endl << endl;
+    Mat result = CVAlg::backwardMapping(gray, combined, 2, 2);
 
     // Create a window with a specified name
     namedWindow("Target");
 
     // Display the image
-    imshow("Target", original);
+    imshow("Target", result);
     waitKey(0);
 
     return 0;

@@ -54,9 +54,11 @@ A set of naive implementations of popular CV algorithms implemented in `C++` usi
     Mat gray(original.rows, original.cols, CV_8UC1, Scalar(0));
     CVAlg::grayscale(original, gray);
 
-    // Scale the image
-    Mat scale = CVAlg::scaleMat(2.0, 2.0);
-    Mat result = CVAlg::backwardMapping(gray, scale, 2, 2);
+    // Rotate the image
+    Mat rot = CVAlg::rotationMat(150.0);
+    Mat trans = CVAlg::translateMat(500.0, 0.0);
+    Mat combined = trans * rot;
+    Mat result = CVAlg::backwardMapping(gray, combined, 2, 2);
 ```
 
 ## Shearing

@@ -16,16 +16,26 @@ A set of naive implementations of popular CV algorithms implemented in `C++` usi
 
 ```C++
     // Convert the image to grayscale
-    Mat gray = CVAlg::grayscale(original);
-
-    // Stretch the image's histogram
-    CVAlg::histogramStretch(gray);
+    Mat gray(original.rows, original.cols, CV_8UC1, Scalar(0));
+    CVAlg::grayscale(original, gray);
 
     //Binarize image
     Mat binary = CVAlg::threshold(gray, 125);
 ```
 
 # Image Transformations
+
+## Scaling
+
+```C++
+    // Convert the image to grayscale
+    Mat gray(original.rows, original.cols, CV_8UC1, Scalar(0));
+    CVAlg::grayscale(original, gray);
+
+    //Binarize image
+    Mat scale = CVAlg::scaleMat(2.0, 2.0);
+    Mat result = CVAlg::backwardMapping(gray, scale, 2, 2);
+```
 
 ## Shearing
 
@@ -35,10 +45,8 @@ A set of naive implementations of popular CV algorithms implemented in `C++` usi
 
 ```C++
     // Convert the image to grayscale
-    Mat gray = CVAlg::grayscale(original);
-
-    // Stretch the image's histogram
-    CVAlg::histogramStretch(gray);
+    Mat gray(original.rows, original.cols, CV_8UC1, Scalar(0));
+    CVAlg::grayscale(original, gray);
     
     // Perform Shearing
     Mat shear = CVAlg::shearMat(0.0, 1.1);
@@ -57,11 +65,9 @@ A set of naive implementations of popular CV algorithms implemented in `C++` usi
 
 ```C++
     // Convert the image to grayscale
-    Mat gray = CVAlg::grayscale(original);
-
-    // Stretch the image's histogram
-    CVAlg::histogramStretch(gray);
-
+    Mat gray(original.rows, original.cols, CV_8UC1, Scalar(0));
+    CVAlg::grayscale(original, gray);
+    
     // Blur the image
     Mat blurred = CVAlg::gausBlur(gray, 7, 2.0);
 ```
@@ -74,10 +80,8 @@ A set of naive implementations of popular CV algorithms implemented in `C++` usi
 
 ```C++
     // Convert the image to grayscale
-    Mat gray = CVAlg::grayscale(original);
-
-    // Stretch the image's histogram
-    CVAlg::histogramStretch(gray);
+    Mat gray(original.rows, original.cols, CV_8UC1, Scalar(0));
+    CVAlg::grayscale(original, gray);
 
     // Extract edges
     Mat edges = CVAlg::sobelEdge(gray);
@@ -93,9 +97,6 @@ A set of naive implementations of popular CV algorithms implemented in `C++` usi
     // Convert the image to grayscale
     Mat gray = CVAlg::grayscale(original);
 
-    // Stretch the image's histogram
-    CVAlg::histogramStretch(gray);
-
     // Extract corners
     Mat corners = CVAlg::harrisCorners(gray, 7, 0.04);
 
@@ -110,9 +111,6 @@ A set of naive implementations of popular CV algorithms implemented in `C++` usi
 ```C++
     // Convert the image to grayscale
     Mat gray = CVAlg::grayscale(original);
-
-    // Stretch the image's histogram
-    CVAlg::histogramStretch(gray);
 
     // Extract corners
     Mat corners = CVAlg::shiTomasiCorners(gray, 5);

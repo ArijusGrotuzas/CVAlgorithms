@@ -44,8 +44,10 @@ A set of naive implementations of popular CV algorithms implemented in `C++` usi
 
 ## Rotation about Z axis
 
-| `Original` | `Scaled` |
+| `Original` | `Rotated` |
 | :---:| :---:|
+| ![chicky_512](https://user-images.githubusercontent.com/50104866/178111529-a5a7527e-8b52-4495-8539-81341b259bb4.png)|![Rotated](https://user-images.githubusercontent.com/50104866/178111549-a464b869-b390-414d-90d2-9cd7349911b9.png)|
+
 
 ```C++
     // Convert the image to grayscale

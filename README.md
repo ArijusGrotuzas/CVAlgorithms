@@ -1,5 +1,5 @@
 # CV Algorithms
-A set of naive implementations of popular CV algorithms implemented in `C++` using `OpenCV` library. The examples below contain code snippets showcasing example use of algorithms.
+A set of naive implementations of popular CV algorithms implemented in `C++` using the `OpenCV` library. The examples below contain code snippets showcasing example use of algorithms.
 
 # Table of contents
 - [Image-thresholding](#Image-thresholding)
